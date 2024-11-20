@@ -6,7 +6,7 @@ resource "aws_instance" "task_app_instance" {
   ami           = "ami-0866a3c8686eaeeba"  # Amazon Linux 2 AMI ID (update for your region)
   instance_type = "t2.micro"
 
-  user_data = file("user_data.sh")  # Reference the user-data script
+  user_data = file("userdata.sh")  # Reference the user-data script
   key_name  = "tms_key"  # Replace with your EC2 key pair name
 
   tags = {
@@ -30,6 +30,13 @@ resource "aws_security_group" "task_app_sg" {
   ingress {
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH access (restrict this for production)
+  }
+
+ingress {
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]  # Allow SSH access (restrict this for production)
   }
