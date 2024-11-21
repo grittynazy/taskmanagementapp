@@ -11,3 +11,7 @@ crash.log
 # Ignore other temporary or sensitive files
 *.tfplan
 
+# Node.js artifacts
+node_modules/
+package-lock.json
+
